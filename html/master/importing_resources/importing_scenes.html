@@ -1,34 +1,35 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2026-02-16T16:34:21+00:00" /><meta property="og:title" content="Importing Scenes" />
+    <meta property="article:modified_time" content="2026-07-16T22:18:45+00:00" /><meta property="og:title" content="Importing Scenes" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://docs.crownengine.org/html/latest/importing_resources/importing_scenes.html" />
-<meta property="og:site_name" content="Crown 0.62.0 Manual" />
-<meta property="og:description" content="Crown can import most useful elements from 3D scenes saved in FBX format. When you import an FBX file, Crown opens a dialog where you can select import options and choose which parts of the scene to bring into your project: The FBX import dialog., FBX import dialog: The FBX im..." />
+<meta property="og:site_name" content="Crown 0.65.0 Manual" />
+<meta property="og:description" content="Crown can import most useful elements from 3D scenes saved in FBX or OBJ format. The sections below refer mostly to FBX models because FBX is the most popular format, but the same principles apply to other supported formats. Specific formats are mentioned where necessary. FBX ..." />
 <meta property="og:image" content="https://docs.crownengine.org/html/latest/_images/import_fbx.png" />
-<meta property="og:image:alt" content="Crown 0.62.0 Manual" />
-<meta name="description" content="Crown can import most useful elements from 3D scenes saved in FBX format. When you import an FBX file, Crown opens a dialog where you can select import options and choose which parts of the scene to bring into your project: The FBX import dialog., FBX import dialog: The FBX im..." />
+<meta property="og:image:alt" content="Crown 0.65.0 Manual" />
+<meta name="description" content="Crown can import most useful elements from 3D scenes saved in FBX or OBJ format. The sections below refer mostly to FBX models because FBX is the most popular format, but the same principles apply to other supported formats. Specific formats are mentioned where necessary. FBX ..." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@crown_engine" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Importing Scenes &mdash; Crown 0.62.0 Manual</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <title>Importing Scenes &mdash; Crown 0.65.0 Manual</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+
+  
     <link rel="shortcut icon" href="../_static/org.crownengine.Crown.svg"/>
     <link rel="canonical" href="https://docs.crownengine.org/html/latest/importing_resources/importing_scenes.html" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
+      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+      <script src="../_static/jquery.js"></script>
+      <script src="../_static/underscore.js"></script>
+      <script src="../_static/doctools.js"></script>
+      <script src="../_static/js/sidebar_sections.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -42,53 +43,121 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html">
-            <img src="../_static/org.crownengine.Crown.svg" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/org.crownengine.Crown.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                Crown 0.62.0 Manual
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installing_crown/index.html">Installing Crown</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../level_editor/index.html">Level Editor</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Importing Resources</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="importing_resources.html">Importing resources</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Importing Scenes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#fbx-import-dialog">FBX import dialog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#one-fbx-per-clip">One FBX per clip</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#importing-geometry-and-skeleton">1) Importing geometry and skeleton</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#importing-animation-clips">2) Importing animation clips</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing_crown/installing.html">Installing Crown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing_crown/hardware_requirements.html">Hardware Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing_crown/installing_on_linux.html">Installing on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installing_crown/installing_on_windows.html">Installing on Windows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/basic_concepts.html">Basic Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/for_the_impatient.html">For the Impatient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/create_new_project.html">Creating a new project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/import_existing_project.html">Importing an existing project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level_editor/level_editor.html">Editor overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Level Editor</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../level_editor/project_browser.html">Project Browser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level_editor/console.html">Console</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level_editor/inspector.html">Inspector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level_editor/level_tree.html">Level Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level_editor/level_viewport.html">Level Viewport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../level_editor/texture_settings.html">Texture Settings</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Importing Resources</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="importing_resources.html">Importing resources</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Importing Scenes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fbx-import-dialog">FBX import dialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preparing-models-for-export">Preparing Models for Export</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fbx">FBX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obj">OBJ</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#one-fbx-per-clip">One FBX per clip</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#importing-geometry-and-skeleton">1) Importing geometry and skeleton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importing-animation-clips">2) Importing animation clips</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="importing_sprites.html">Importing Sprites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="importing_textures.html">Importing Textures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="importing_sounds.html">Importing Sounds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="importing_fonts.html">Importing Fonts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-lods">Importing LODs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../units/index.html">Units</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rendering/index.html">Rendering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../physics/index.html">Physics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../gameplay/index.html">Writing Gameplay</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deploying/index.html">Deploying</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_sprites.html">Importing Sprites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_textures.html">Importing Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_sounds.html">Importing Sounds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="importing_fonts.html">Importing Fonts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Units</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../units/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../units/creating_units.html">Creating Units</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../units/unit_editor.html">Unit Editor</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Rendering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rendering/lighting.html">Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rendering/materials.html">Materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rendering/shading_environment.html">Shading Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rendering/render_config.html">Render Config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Physics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../physics/rigid_bodies.html">Rigid Bodies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../physics/global_physics_config.html">Global Physics Config</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Scripting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay/lua_scripting.html">Scripting in Lua</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay/objects_binding.html">Objects binding and lifetime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameplay/unit_interaction.html">Interacting with Units</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../lua_api.html">Lua API reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Deploying</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deploying/index.html">Deploying</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploying/android.html">Deploying to Android</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploying/html5.html">Deploying to HTML5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploying/desktop.html">Deploying to Desktop Platforms</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/console_commands.html">Console commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/boot_config.html">boot.config reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/command_line.html">Command line</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Engine Hackers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../hackers/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackers/building.html">Building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackers/translating.html">Translating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackers/console_api.html">Console API</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">License</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../copyright.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hackers/index.html">Engine Hackers</a></li>
 </ul>
 
         </div>
@@ -97,16 +166,15 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Crown 0.62.0 Manual</a>
+          <a href="../index.html">Crown 0.65.0 Manual</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Importing Resources</a> &raquo;</li>
-      <li>Importing Scenes</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Importing Scenes</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/importing_resources/importing_scenes.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -118,24 +186,62 @@
              
   <section id="importing-scenes">
 <span id="id1"></span><h1>Importing Scenes<a class="headerlink" href="#importing-scenes" title="Permalink to this headline">¶</a></h1>
-<p>Crown can import most useful elements from 3D scenes saved in FBX format. When
-you import an FBX file, Crown opens a dialog where you can select import
-options and choose which parts of the scene to bring into your project:</p>
-<figure class="align-center" id="id2">
-<img alt="../_images/import_fbx.png" src="../_images/import_fbx.png" />
-<figcaption>
-<p><span class="caption-text">The FBX import dialog.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
+<p>Crown can import most useful elements from 3D scenes saved in FBX or OBJ format.
+The sections below refer mostly to FBX models because FBX is the most popular
+format, but the same principles apply to other supported formats. Specific
+formats are mentioned where necessary.</p>
 <section id="fbx-import-dialog">
 <h2>FBX import dialog<a class="headerlink" href="#fbx-import-dialog" title="Permalink to this headline">¶</a></h2>
-<p>The FBX import dialog is divided into two main sections:</p>
+<p>When you import an FBX file, Crown opens a dialog where you can select import
+options and choose which parts of the scene to bring into the project. The FBX
+import dialog is divided into two main sections:</p>
 <ul class="simple">
 <li><p>Units: import geometry, lights, cameras, materials and any associated
 textures.</p></li>
 <li><p>Animation: import skeleton and animation clips. If your scene contains no
 animations, you can ignore this section.</p></li>
 </ul>
+<figure class="align-center" id="id2">
+<img alt="../_images/import_fbx.png" src="../_images/import_fbx.png" />
+<figcaption>
+<p><span class="caption-text">The FBX import dialog.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="preparing-models-for-export">
+<h2>Preparing Models for Export<a class="headerlink" href="#preparing-models-for-export" title="Permalink to this headline">¶</a></h2>
+<p>Crown uses Y-forward Z-up axes. To keep models correctly oriented after import,
+use those axes when exporting from DCC programs whenever possible.</p>
+<p>This is especially important when working with OBJ scenes, because the format
+generally does not store the axes used at export time. In that case, Crown has
+no way to automatically detect whether it should insert an extra root node to
+correct the orientation. FBX scenes, on the other hand, include this
+information, and Crown uses it to insert a corrective root node when necessary.
+Even so, it is best to export with settings that match Crown’s conventions.</p>
+<p>The settings below are Blender-specific. Other 3D applications may expose the
+same export choices under different names. For both FBX and OBJ exports, set
+<code class="docutils literal notranslate"><span class="pre">Forward</span></code> to <code class="docutils literal notranslate"><span class="pre">Y</span></code> and <code class="docutils literal notranslate"><span class="pre">Up</span></code> to <code class="docutils literal notranslate"><span class="pre">Z</span></code>.</p>
+<section id="fbx">
+<h3>FBX<a class="headerlink" href="#fbx" title="Permalink to this headline">¶</a></h3>
+<p>When exporting FBX files, also set <code class="docutils literal notranslate"><span class="pre">Apply</span> <span class="pre">Scalings</span></code> to <code class="docutils literal notranslate"><span class="pre">FBX</span> <span class="pre">Units</span> <span class="pre">Scale</span></code>.
+This causes the FBX file to store meter units, which matches Crown’s importer
+and avoids an extra root unit.</p>
+<figure class="align-center" id="id3">
+<img alt="../_images/blender_export_fbx.svg" src="../_images/blender_export_fbx.svg" /><figcaption>
+<p><span class="caption-text">Blender FBX export settings for axes and unit scaling.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="obj">
+<h3>OBJ<a class="headerlink" href="#obj" title="Permalink to this headline">¶</a></h3>
+<p>For OBJ exports, enable <code class="docutils literal notranslate"><span class="pre">PBR</span> <span class="pre">Extensions</span></code> under <code class="docutils literal notranslate"><span class="pre">Materials</span></code> when the option
+is available; otherwise, some texture maps may go undetected by the importer.</p>
+<figure class="align-center" id="id4">
+<img alt="../_images/blender_export_obj.svg" src="../_images/blender_export_obj.svg" /><figcaption>
+<p><span class="caption-text">Blender OBJ export settings for axes and material metadata.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
 </section>
 <section id="one-fbx-per-clip">
 <h2>One FBX per clip<a class="headerlink" href="#one-fbx-per-clip" title="Permalink to this headline">¶</a></h2>
@@ -149,17 +255,17 @@ simplifies asset management and make faster iterations possible.</p>
 <p>Start by importing the FBX that contains the geometry and skeleton. In the
 Project Browser create or select the target folder, make sure <code class="docutils literal notranslate"><span class="pre">Import</span>
 <span class="pre">Animations</span></code> is unchecked, then click <code class="docutils literal notranslate"><span class="pre">Import</span></code> to begin:</p>
-<figure class="align-center" id="id3">
+<figure class="align-center" id="id5">
 <img alt="../_images/import_fbx_unchecked_animations.svg" src="../_images/import_fbx_unchecked_animations.svg" /><figcaption>
-<p><span class="caption-text">Disabling animation import when importing geometry and skeleton.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Disabling animation import when importing geometry and skeleton.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>When the import completes, the unit (geometry), the skeleton, and any other
 objects you selected in the Unit section will appear as separate items in the
 Project Browser:</p>
-<figure class="align-center" id="id4">
+<figure class="align-center" id="id6">
 <img alt="../_images/project_browser_import_clips_unit_and_skeleton.svg" src="../_images/project_browser_import_clips_unit_and_skeleton.svg" /><figcaption>
-<p><span class="caption-text">Imported unit, skeleton, and related resources in the Project Browser.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Imported unit, skeleton, and related resources in the Project Browser.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>
@@ -174,20 +280,29 @@ dialog:</p>
 <li><p>Uncheck <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Skeleton</span></code> to indicate that the skeleton already exists.</p></li>
 <li><p>Set <code class="docutils literal notranslate"><span class="pre">Target</span> <span class="pre">Skeleton</span></code> to the skeleton you imported in the previous step.</p></li>
 </ul>
-<figure class="align-center" id="id5">
+<figure class="align-center" id="id7">
 <img alt="../_images/import_fbx_select_skeleton.svg" src="../_images/import_fbx_select_skeleton.svg" /><figcaption>
-<p><span class="caption-text">Selecting the target skeleton when importing animation clips.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Selecting the target skeleton when importing animation clips.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>When the importer finishes, it creates an <code class="docutils literal notranslate"><span class="pre">animations</span></code> folder and places the
 imported clips inside it, with correct references to the existing skeleton and
 geometry:</p>
-<figure class="align-center" id="id6">
+<figure class="align-center" id="id8">
 <img alt="../_images/project_browser_imported_clips.svg" src="../_images/project_browser_imported_clips.svg" /><figcaption>
-<p><span class="caption-text">Imported animation clips in the dedicated <code class="docutils literal notranslate"><span class="pre">animations</span></code> folder.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Imported animation clips in the dedicated <code class="docutils literal notranslate"><span class="pre">animations</span></code> folder.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>
+</section>
+<section id="importing-lods">
+<h2>Importing LODs<a class="headerlink" href="#importing-lods" title="Permalink to this headline">¶</a></h2>
+<p>Crown generates a <code class="docutils literal notranslate"><span class="pre">LOD</span> <span class="pre">Group</span></code> component in the root unit and populates it
+automatically when it detects the imported model contains LODs.</p>
+<p>A model can explicitly mark a mesh as LOD in a group by adding a <code class="docutils literal notranslate"><span class="pre">_LODx</span></code>
+suffix to its name. The <code class="docutils literal notranslate"><span class="pre">x</span></code> in the suffix can be any non-negative number and
+can be zero-padded (e.g. <code class="docutils literal notranslate"><span class="pre">_LOD01</span></code>). LODs can start at any number but there
+must be no gaps between successive LODs.</p>
 </section>
 </section>
 
@@ -203,7 +318,7 @@ geometry:</p>
 
   <div role="contentinfo">
     <p>&#169; <a href="../copyright.html">Copyright</a> Except where otherwise noted, content on this page is licensed under a CC-BY-SA 4.0 Int. License.
-      <span class="lastupdated">Last updated on Feb 16, 2026.
+      <span class="lastupdated">Last updated on Jul 16, 2026.
       </span></p>
   </div>
 

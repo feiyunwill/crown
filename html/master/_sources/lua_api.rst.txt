@@ -5,6 +5,8 @@ Lua API reference
 AnimationStateMachine
 =====================
 
+Interface to the animation state machine component in a unit.
+
 **create** (asm, unit, state_machine_resource) : Id
 	Creates a new state machine instance for *unit* and returns its id.
 
@@ -33,23 +35,25 @@ AnimationStateMachine
 DebugLine
 =========
 
+Interface to draw various shapes for debugging purposes.
+
 **add_line** (debug_line, start, end, color)
-	Adds a line from *start* to *end* with the given *color*.
+	Adds a line from *start* to *end* with the specified *color*.
 
 **add_axes** (debug_line, tm, length)
-	Adds lines for each axis with the given *length*.
+	Adds lines for each axis with the specified *length*.
 
 **add_arc** (debug_line, center, radius, plane_normal, midpoint_normal, color, [circle_segments = 36]);
-	Adds an arc at *center* with the given *radius* and *plane_normal* and *midpoint_normal* vectors.
+	Adds an arc at *center* with the specified *radius* and *plane_normal* and *midpoint_normal* vectors.
 
 **add_circle** (debug_line, center, radius, normal, color, [segments = 36])
-	Adds a circle at *center* with the given *radius* and *normal* vector.
+	Adds a circle at *center* with the specified *radius* and *normal* vector.
 
 **add_cone** (debug_line, from, to, radius, color, [segments = 36, rays = 36])
 	Adds a cone with the base centered at *from* and the tip at *to*.
 
 **add_sphere** (debug_line, center, radius, color, [segments = 36])
-	Adds a sphere at *center* with the given *radius*.
+	Adds a sphere at *center* with the specified *radius*.
 
 **add_obb** (debug_line, tm, half_extents, color)
 	Adds an orientd bounding box. *tm* describes the position and orientation of
@@ -66,6 +70,8 @@ DebugLine
 
 Device
 ======
+
+Interface to access global application-level functionalities.
 
 **argv** () : table
 	Returns a table containing the command line parameters the engine was started with.
@@ -90,6 +96,9 @@ Device
 	Quits the application. On platforms that support it, *exit_code* is
 	returned to the system after the application exits.
 
+**open_uri** (uri)
+	Opens the specified *uri* with the default program.
+
 **resolution** () : float, float
 	Returns the main window resolution (width, height).
 
@@ -97,13 +106,13 @@ Device
 	Creates a new world.
 
 **destroy_world** (world)
-	Destroys the given *world*.
+	Destroys the specified *world*.
 
 **render** (world, camera)
 	Renders *world* using *camera*.
 
 **create_resource_package** (name) : ResourcePackage
-	Returns the resource package with the given *package_name* name.
+	Returns the resource package with the specified *package_name* name.
 
 **destroy_resource_package** (package)
 	Destroy a previously created resource *package*.
@@ -120,7 +129,7 @@ Device
 		Only available in debug and development builds.
 
 **console_send** (table)
-	Sends the given lua *table* to clients connected to the engine.
+	Sends the specified lua *table* to clients connected to the engine.
 	Values can be either ``nil``, bool, number, string, table, array, Vector2, Vector3, Quaternion, Matrix4x4 or Color4.
 
 **can_get** (type, name) : bool
@@ -159,8 +168,13 @@ Device
 	2. Compute the average for the remaining 6 values in DTs: AVG = 0.323.
 	3. Smooth the newly computed average: AVG = lerp(AVGp, AVG, 0.1) = 0.329.
 
+**string_id** (str) : string
+    Returns the 32-bits hash of *str*.
+
 Display
 =======
+
+Interface to access the graphical display.
 
 **modes** () : table
 	Returns an array of `DisplayMode`_ tables.
@@ -180,6 +194,8 @@ DisplayMode is a lua table with 3 fields:
 
 Gui
 ===
+
+An immediate-mode GUI to draw text and various primitive shapes either in 2D or 3D.
 
 **move** (gui, pos)
 	Moves the Gui to *pos*.
@@ -225,9 +241,10 @@ Gui
 	a lower depth are drawn in front. If pos is a Vector2, the z elements is set
 	to 0.
 
-**text_extents** (gui, font_size, str, font_resource) : Vector2
+**text_extents** (gui, font_size, str, font_resource) : Vector2, Vector2, Vector2
 	Returns the extents of the text *str* if drawn using *font_resource* at size
-	*font_size*.
+	*font_size*, followed by the minimum and maximum corners of its bounding box
+	relative to the text position.
 
 **text_3d** (gui, local_pose, pos, font_size, str, font_resource [, material_resource, color, depth])
 	Draws 3D text.
@@ -237,6 +254,8 @@ Gui
 
 Input
 =====
+
+A singleton that exposes the full list of input events in each frame.
 
 **events** () : table
 	Returns an array of `InputEvent`_ tables.
@@ -259,7 +278,9 @@ InputEventType
 * ``AXIS_CHANGED``: An axis changed its value.
 
 Keyboard
---------
+========
+
+Singleton that represents the default system keyboard.
 
 **name** () : string
 	Returns the name of keyboard.
@@ -297,23 +318,26 @@ Keyboard
 	Returns the *id* of the button *name* or ``nil`` if no matching button is found.
 
 Keyboard Button Names
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 * ``tab``, ``enter``, ``escape``, ``space``, ``backspace``
 * ``num_lock``, ``numpad_enter``, ``numpad_.``, ``numpad_*``, ``numpad_+``, ``numpad_-``, ``numpad_/``, ``numpad_0``, ``numpad_1``, ``numpad_2``, ``numpad_3``, ``numpad_4``, ``numpad_5``, ``numpad_6``, ``numpad_7``, ``numpad_8``, ``numpad_9``
 * ``f1``, ``f2``, ``f3``, ``f4``, ``f5``, ``f6``, ``f7``, ``f8``, ``f9``, ``f10``, ``f11``, ``f12``
-* ``home``, ``left``, ``up``, ``right``, ``down``, ``page_up``, ``page_down``, ``ins``, ``del``, ``end``
+* ``home``, ``left``, ``up``, ``right``, ``down``, ``page_up``, ``page_down``, ``ins``, ``del``, ``end``, ``print_screen``, ``scroll_lock``, ``break``
 * ``ctrl_left``, ``ctrl_right``, ``shift_left``, ``shift_right``, ``caps_lock``, ``alt_left``, ``alt_right``, ``super_left``, ``super_right``
 * ``0``, ``1``, ``2``, ``3``, ``4``, ``5``, ``6``, ``7``, ``8``, ``9``
 * ``a``, ``b``, ``c``, ``d``, ``e``, ``f``, ``g``, ``h``, ``i``, ``j``, ``k``, ``l``, ``m``, ``n``, ``o``, ``p``, ``q``, ``r``, ``s``, ``t``, ``u``, ``v``, ``w``, ``x``, ``y``, ``z``
+* ``backtick``, ``minus``, ``equal``, ``open_bracket``, ``close_bracket``, ``backslash``, ``semicolon``, ``quote``, ``comma``, ``period``, ``slash``
 
 Keyboard Axis Names
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 None.
 
 Mouse
------
+=====
+
+Singleton that represents the default system mouse.
 
 **name** () : string
 	Returns the name of the mouse.
@@ -360,19 +384,21 @@ Mouse
 	Returns the *id* of the axis *name* or ``nil`` if no matching axis is found.
 
 Mouse Button Names
-~~~~~~~~~~~~~~~~~~
+------------------
 
 ``left``, ``middle``, ``right``, ``extra_1``, ``extra_2``
 
 Mouse Axis Names
-~~~~~~~~~~~~~~~~
+----------------
 
 * ``cursor``: Returns the cursor position (x, y) in screen coordinates.
 * ``cursor_delta``: Returns the delta of the cursor position (x, y) since last frame.
 * ``wheel``: Returns the movement of the mouse wheel in the y axis. Positive values of y mean upward scrolling, negative values mean downward scrolling.
 
 Touch
------
+=====
+
+Singleton that represents the default system touchscreen.
 
 **name** () : string
 	Returns the name of the touch.
@@ -419,7 +445,9 @@ Touch
 	Returns the *id* of the axis *name* or ``nil`` if no matching axis is found.
 
 Pad1, Pad2, Pad3, Pad4
-----------------------
+======================
+
+Singleton that represents the connected gamepad(s).
 
 **name** () : string
 	Returns the name of the pad.
@@ -472,7 +500,7 @@ Pad1, Pad2, Pad3, Pad4
 	Sets the *deadzone_mode* and *deadzone_size* for the axis *id*.
 
 Pad Button Names
-~~~~~~~~~~~~~~~~
+----------------
 
 * ``up``, ``down``, ``left``, ``right``
 * ``start``, ``back``, ``guide``
@@ -481,13 +509,17 @@ Pad Button Names
 * ``a``, ``b``, ``x``, ``y``
 
 Pad Axis Names
-~~~~~~~~~~~~~~
+--------------
 
 * ``left``, ``right``: Returns the direction (x, y) of the left or right thumbstick [-1; +1].
 * ``trigger_left``, ``trigger_right``: The z element represents the left or right trigger [0; +1].
 
+.. _lua_material:
+
 Material
 ========
+
+Interface to manipulate a rendering material.
 
 **set_float** (material, name, value)
 	Sets the *value* of the variable *name*.
@@ -507,20 +539,21 @@ Material
 **set_texture** (material, sampler_name, texture_name)
 	Sets the *texture_resource* of the sampler *sampler_name*.
 
-Math
-====
-
 Vector3
--------
+=======
+
+Temporary 3D vector representing directions, positions etc. It is valid only in
+the current frame; use ``Vector3Box`` to store a copy for use in later frames.
+See :doc:`gameplay/objects_binding`.
 
 Constructors
-~~~~~~~~~~~~
+------------
 
 **Vector3** (x, y, z) : Vector3
 	Returns a new vector from individual elements.
 
 Functions
-~~~~~~~~~
+---------
 
 **x** (v) : float
 	Returns the x value of the vector.
@@ -615,10 +648,13 @@ Functions
 	Returns a string representing the vector *v*.
 
 Vector3Box
-----------
+==========
+
+Boxed ``Vector3`` for storing vector values across frames. See
+:doc:`gameplay/objects_binding`.
 
 Constructors
-~~~~~~~~~~~~
+------------
 
 **Vector3Box** () : Vector3Box
 	Returns a new Vector3Box initialized with the zero vector.
@@ -630,7 +666,7 @@ Constructors
 	Returns a new Vector3Box from individual elements.
 
 Functions
-~~~~~~~~~
+---------
 
 **store** (v)
 	Stores the Vector3 *v* in the box.
@@ -642,10 +678,14 @@ Functions
 	Returns the stored vector from the box.
 
 Quaternion
-----------
+==========
+
+Temporary quaternion representing orientation in 3D space. It is valid only in
+the current frame; use ``QuaternionBox`` to store a copy for use in later
+frames. See :doc:`gameplay/objects_binding`.
 
 Constructors
-~~~~~~~~~~~~
+------------
 
 **Quaternion** (axis, angle) : Quaternion
 	Returns a new quaternion from *axis* and *angle*.
@@ -657,7 +697,7 @@ Constructors
 	Returns a new quaternion from *axis* and *angle*.
 
 Functions
-~~~~~~~~~
+---------
 
 **negate** (q) : Quaternion
 	Negates the quaternion *q* and returns the result.
@@ -693,8 +733,9 @@ Functions
 	Returns the x, y, z and w elements of the quaternion.
 
 **look** (dir, [up]) : Quaternion
-	Returns the quaternion describing the rotation needed to face towards *dir*.
-	If *up* is not specified, Vector3.up() is used.
+    Returns the quaternion describing the rotation needed to face towards *dir*.
+    *dir* must be a unit vector. *up* must be non-zero and not parallel to
+    *dir*. If *up* is not specified, Vector3.up() is used.
 
 **right** (q) : Vector3
 	Returns the right axis of the rotation described by *q*.
@@ -713,10 +754,13 @@ Functions
 	Returns a string representing the quaternion *q*.
 
 QuaternionBox
--------------
+=============
+
+Boxed ``Quaternion`` for storing rotation values across frames. See
+:doc:`gameplay/objects_binding`.
 
 Constructors
-~~~~~~~~~~~~
+------------
 
 **QuaternionBox** () : QuaternionBox
 	Returns a new QuaternionBox initialized with the identity quaternion.
@@ -728,7 +772,7 @@ Constructors
 	Returns a new QuaternionBox from individual elements.
 
 Functions
-~~~~~~~~~
+---------
 
 **store** (q)
 	Stores the Quaternion *q* in the box.
@@ -740,10 +784,14 @@ Functions
 	Returns the stored quaternion from the box.
 
 Matrix4x4
----------
+=========
+
+Temporary 4x4 matrix representing rotation and translation. It is valid only in
+the current frame; use ``Matrix4x4Box`` to store a copy for use in later frames.
+See :doc:`gameplay/objects_binding`.
 
 Constructors
-~~~~~~~~~~~~
+------------
 
 **Matrix4x4** (xx, xy, xz, xw, yx, yy, yz, yw, zx, zy, zz, zw, tx, ty, tz, tw) : Matrix4x4
 	Returns a new matrix from individual elements.
@@ -761,7 +809,7 @@ Constructors
 	Returns a new matrix from *x*, *y*, *z* and *t*.
 
 Functions
-~~~~~~~~~
+---------
 
 **copy** (m) : Matrix4x4
 	Returns a copy of the matrix *m*.
@@ -830,10 +878,13 @@ Functions
 	Returns a string representing the matrix *m*.
 
 Matrix4x4Box
-------------
+============
+
+Boxed ``Matrix4x4`` for storing matrix values across frames. See
+:doc:`gameplay/objects_binding`.
 
 Constructors
-~~~~~~~~~~~~
+------------
 
 **Matrix4x4Box** () : Matrix4x4Box
 	Returns a new Matrix4x4Box initialized with the identity matrix.
@@ -842,7 +893,7 @@ Constructors
 	Returns a new Matrix4x4Box from the Matrix4x4 *m*.
 
 Functions
-~~~~~~~~~
+---------
 
 **store** (m)
 	Stores the Matrix4x4 *m* in the box.
@@ -851,16 +902,20 @@ Functions
 	Returns the stored matrix from the box.
 
 Color4
-------
+======
+
+Temporary RGBA color value. Elements range is [0; 255]. It is valid only in the
+current frame. Use ``QuaternionBox`` to store a copy for use in later frames.
+See :doc:`gameplay/objects_binding`.
 
 Constructors
-~~~~~~~~~~~~
+------------
 
 **Color4** (r, g, b, a) : Color4
 	Returns a new Color4 from individual elements.
 
 Functions
-~~~~~~~~~
+---------
 
 **lerp** (a, b, t) : Color4
 	Returns the linearly interpolated color between *a* and *b* at time *t* in [0, 1].
@@ -878,7 +933,9 @@ Functions
 	Returns a string representing the color *c*.
 
 Math
-----
+====
+
+Assorted math helper functions.
 
 **ray_plane_intersection** (from, dir, point, normal) : float
 	Returns the distance along ray (from, dir) to intersection point with plane defined by
@@ -903,7 +960,7 @@ Math
 **obb_intersects_frustum** (obb_tm, obb_half_extents, n0, d0, n1, d1, n2, d2, n3, d3, n4, d4, n4, d5) : bool
 	Returns whether the oriented bounding box (obb_tm, obb_half_extents) intersects
 	the frustum defined by the planes ((n0, d0), (n1, d1), ..., (n5, d5)). The
-	planes be given in BRTLNF order, where B = bottom plane, R = right plane etc.
+	planes must be specified in BRTLNF order, where B = bottom plane, R = right plane etc.
 
 **obb_vertices** (obb_tm, obb_half_extents) : v0, v1, v2, v3, v4, v5, v6, v7
 	Returns the vertices of the oriented bounding box (obb_tm, obb_half_extents).
@@ -916,6 +973,8 @@ Math
 
 PhysicsWorld
 =============
+
+Manages physics objects in a `World`_.
 
 **gravity** (pw) : Vector3
 	Returns the gravity.
@@ -978,13 +1037,13 @@ Actor
 	Returns the world pose of the *actor*.
 
 **actor_teleport_world_position** (pw, actor, position)
-	Teleports the *actor* to the given world *position*.
+	Teleports the *actor* to the specified world *position*.
 
 **actor_teleport_world_rotation** (pw, actor, rotation)
-	Teleports the *actor* to the given world *rotation*.
+	Teleports the *actor* to the specified world *rotation*.
 
 **actor_teleport_world_pose** (pw, actor, pose)
-	Teleports the *actor* to the given world *pose*.
+	Teleports the *actor* to the specified world *pose*.
 
 **actor_center_of_mass** (pw, actor) : Vector3
 	Returns the center of mass of the *actor*.
@@ -1068,8 +1127,8 @@ Actor
 	Adds a torque *impulse* to the *actor*.
 
 **actor_push** (pw, actor, velocity, mass)
-	Pushes the *actor* as if it was hit by a point object with the given *mass*
-	travelling at the given *velocity*.
+	Pushes the *actor* as if it was hit by a point object with the specified *mass*
+	travelling at the specified *velocity*.
 
 	.. note::
 		This call only affects nonkinematic actors.
@@ -1116,6 +1175,12 @@ Mover
 **mover_set_max_slope_angle** (pw, mover, angle)
 	Sets the max slope *angle* of the *mover*.
 
+**mover_step_height** (pw, mover) : number
+	Returns the step height of the *mover*.
+
+**mover_set_step_height** (pw, mover, height)
+	Sets the step *height* of the *mover*.
+
 **mover_set_collision_filter** (pw, mover, filter)
 	Sets the collision *filter* of the *mover*.
 
@@ -1144,23 +1209,178 @@ Mover
 **mover_collides_down** (pw, mover) : bool
 	Returns whether the *mover* collides downwards.
 
+**mover_actor_colliding_down** (pw, mover) : Actor
+	Returns the actor colliding downwards with the *mover*, or ``nil``.
+
 **mover_debug_draw** (pw, mover, debug_line [, color])
 	Adds the *mover*'s debug geometry to *lines*.
+
+Joint
+-----
+
+**joint_instance** (pw, unit) : Id
+	Returns the ID of the joint owned by the *unit*, or ``nil``.
+
+**joint_destroy** (pw, joint)
+	Destroys the *joint* instance.
+
+**joint_create** (pw, type, actor, pose, other_actor, other_pose) : Id
+    Creates a new joint between *actor* and *other_actor* and returns its ID.
+    *pose* and *other_pose* describe the joint pivot poses in the corresponding
+    actor's local space. If *actor* or *other_actor* is ``nil``, the valid actor
+    is attached to the world. At least one of *actor* or *other_actor* must be
+    non-``nil``. Type must be one of `JointType`_.
+
+**joint_set_break_force** (pw, joint, force)
+	Sets the break *force* of the *joint*. Use ``math.huge`` to disable breaking.
+
+**joint_spring_params** (pw, joint) : number, number
+	Returns the spring stiffness and damping of the *joint*.
+
+**joint_spring_set_params** (pw, joint, stiffness, damping)
+	Sets the spring *stiffness* and *damping* of the *joint*.
+
+**joint_hinge_angle** (pw, joint) : number
+	Returns the current hinge angle of the *joint*.
+
+**joint_hinge_motor** (pw, joint) : bool, number
+	Returns whether the hinge motor is enabled and its max motor impulse.
+
+**joint_hinge_set_motor** (pw, joint, enabled, max_motor_impulse)
+	Enables or disables the hinge motor and sets its max motor impulse.
+
+**joint_hinge_target_velocity** (pw, joint) : number
+	Returns the hinge motor target velocity.
+
+**joint_hinge_set_target_velocity** (pw, joint, target_velocity)
+	Sets the hinge motor target velocity.
+
+**joint_hinge_limits** (pw, joint) : bool, number, number, number
+	Returns whether hinge limits are enabled, the lower limit, upper limit and bounciness.
+
+**joint_hinge_set_limits** (pw, joint, enabled, lower_limit, upper_limit, bounciness)
+	Enables or disables hinge limits and sets the lower limit, upper limit and bounciness.
+
+**joint_limb_twist_angle** (pw, joint) : number
+	Returns the current limb twist angle.
+
+**joint_limb_swing_y_angle** (pw, joint) : number
+	Returns the current limb swing angle around Y.
+
+**joint_limb_swing_z_angle** (pw, joint) : number
+	Returns the current limb swing angle around Z.
+
+**joint_limb_motion** (pw, joint) : D6Motion, D6Motion, D6Motion
+	Returns the twist, swing Y and swing Z motion settings.
+
+**joint_limb_set_motion** (pw, joint, twist_motion, swing_y_motion, swing_z_motion)
+	Sets the twist, swing Y and swing Z motion settings. Motions must be values from `D6Motion`_.
+
+**joint_limb_twist_limit** (pw, joint) : number, number
+	Returns the lower and upper twist limits.
+
+**joint_limb_set_twist_limit** (pw, joint, lower_limit, upper_limit)
+	Sets the lower and upper twist limits.
+
+**joint_limb_swing_limit** (pw, joint) : number, number
+	Returns the swing Y and swing Z limits.
+
+**joint_limb_set_swing_limit** (pw, joint, y_limit, z_limit)
+	Sets the swing Y and swing Z limits.
+
+**joint_d6_linear_motion** (pw, joint, axis) : D6Motion
+	Returns the linear motion for *axis*. Axis must be a value from `D6Axis`_.
+
+**joint_d6_set_linear_motion** (pw, joint, axis, motion)
+	Sets the linear *motion* for *axis*. Motion must be a value from `D6Motion`_.
+
+**joint_d6_angular_motion** (pw, joint, axis) : D6Motion
+	Returns the angular motion for *axis*. Axis must be a value from `D6Axis`_.
+
+**joint_d6_set_angular_motion** (pw, joint, axis, motion)
+	Sets the angular *motion* for *axis*. Motion must be a value from `D6Motion`_.
+
+**joint_d6_linear_limit** (pw, joint, axis) : number, number
+	Returns the lower and upper linear limits for *axis*.
+
+**joint_d6_set_linear_limit** (pw, joint, axis, lower, upper)
+	Sets the lower and upper linear limits for *axis*.
+
+**joint_d6_angular_limit** (pw, joint, axis) : number, number
+	Returns the lower and upper angular limits for *axis*.
+
+**joint_d6_set_angular_limit** (pw, joint, axis, lower, upper)
+	Sets the lower and upper angular limits for *axis*.
+
+**joint_d6_motor** (pw, joint, axis) : D6Motor, number, D6Motor, number
+	Returns the linear motor, linear max force, angular motor and angular max force for *axis*.
+
+**joint_d6_set_motor** (pw, joint, axis, linear_motor, linear_max_force, angular_motor, angular_max_force)
+	Sets the linear and angular motors and max forces for *axis*. Motors must be values from `D6Motor`_.
+
+**joint_d6_target_velocity** (pw, joint, axis) : number, number
+	Returns the linear and angular target velocities for *axis*.
+
+**joint_d6_set_target_velocity** (pw, joint, axis, linear, angular)
+	Sets the linear and angular target velocities for *axis*.
+
+**joint_d6_target_position** (pw, joint, axis) : number, number
+	Returns the linear and angular target positions for *axis*.
+
+**joint_d6_set_target_position** (pw, joint, axis, linear, angular)
+	Sets the linear and angular target positions for *axis*.
+
+JointType
+---------
+
+* ``FIXED``: Locks all relative translation and rotation.
+* ``HINGE``: Allows rotation around a single axis.
+* ``SPHERICAL``: Keeps the joint poses together while allowing free rotation.
+* ``LIMB``: Twist/swing joint suited for articulated limbs.
+* ``SPRING``: Keeps the joint poses together while allowing them to move as if they were connected by a spring.
+* ``D6``: Highly configurable generic 6-DoF joint.
+
+D6Axis
+------
+
+* ``X``: X axis.
+* ``Y``: Y axis.
+* ``Z``: Z axis.
+
+D6Motion
+--------
+
+* ``LOCKED``: No motion is allowed.
+* ``LIMITED``: Motion is constrained by the configured limits.
+* ``FREE``: Motion is unconstrained.
+
+D6Motor
+-------
+
+* ``OFF``: Motor disabled.
+* ``VELOCITY``: Velocity motor.
+* ``POSITION``: Position motor.
 
 Profiler
 ========
 
+Interface to the integrated profiler.
+
 **enter_scope** (name)
-	Starts a new profile scope with the given *name*.
+	Starts a new profile scope with the specified *name*.
 
 **leave_scope** ()
 	Ends the last profile scope.
 
 **record** (name, value)
-	Records *value* with the given *name*. Value can be either number or Vector3.
+	Records *value* with the specified *name*. Value can be either number or Vector3.
+
+.. _lua_render_world:
 
 RenderWorld
 ===========
+
+Manages rendering objects in a `World`_.
 
 **enable_debug_drawing** (rw, enable)
 	Sets whether to *enable* debug drawing.
@@ -1240,6 +1460,25 @@ Sprite
 	Returns (t, layer, depth), where *t* is the distance along ray (from, dir) to
 	intersection point with the *sprite* or -1.0 if no intersection.
 
+LODGroup
+--------
+
+**lod_group_instance** (rw, unit) : Id
+	Returns the ID of the LOD group owned by the *unit*, or ``nil``.
+
+**lod_group_obb** (rw, lod_group) : Matrix4x4, Vector3
+	Returns the local-space Oriented-Bounding-Box of the *lod_group* as (pose, half_extents).
+
+**lod_group_set_obb** (rw, lod_group, pose, half_extents)
+	Sets the local-space Oriented-Bounding-Box of the *lod_group*.
+
+**lod_group_set_level** (rw, lod_group, level)
+	Sets the LOD *level* to render. Pass -1 to enable automatic LOD selection.
+
+**lod_group_set_mode** (rw, lod_group, mode)
+	Sets the fade *mode* of the *lod_group*.
+	*mode* can be either ``none`` or ``crossfade``.
+
 Light
 -----
 
@@ -1293,8 +1532,9 @@ Light
 **light_set_cast_shadows** (rw, light, cast_shadows)
 	Sets whether the *light* casts shadows.
 
-**light_debug_draw** (rw, light, debug_line)
-	Fills *debug_line* with debug lines from the *light*.
+**light_debug_draw** (rw, light, debug_line, [draw_bounds = true])
+	Fills *debug_line* with debug lines from the *light*. Draws the light bounds when
+	*draw_bounds* is true.
 
 Fog
 ---
@@ -1331,6 +1571,8 @@ Fog
 ResourcePackage
 ===============
 
+Represents a collection of resources that can be loaded in group.
+
 **load** (package)
 	Loads all the resources in the *package*.
 
@@ -1347,8 +1589,54 @@ ResourcePackage
 **has_loaded** (package) : bool
 	Returns whether the *package* has been loaded.
 
+SaveGame
+========
+
+Singleton to save and load savegames.
+
+**save** (filename, data) : Id
+	Starts saving *data* to *filename* asynchronously and returns its request id.
+	The function returns before the file has been written. Poll for completion
+	with ``SaveGame.status()``. *filename* must be a filename, not a path. *data*
+	must be a table with string keys. Values can be bool, number, string, table,
+	Vector3, Vector3Box, Matrix4x4 or Matrix4x4Box.
+
+**load** (filename) : Id
+	Starts loading *filename* asynchronously and returns its request id. The
+	function returns before the file has been read. Poll for completion with
+	``SaveGame.status()``. *filename* must be a filename, not a path. When the
+	request is done, the loaded table is returned in the ``data`` field of
+	``SaveGame.status()``.
+
+**status** (request) : table
+	Returns a table with the current status of *request*.
+
+	The returned table has the following fields:
+
+	* ``done``: Whether the request has finished.
+	* ``progress``: Completion progress in the [0; 1] range.
+	* ``data``: The loaded table. This field is present only for successful load requests.
+	* ``error``: One of `SaveError`_, or ``nil`` if the request is done and no error has occurred.
+
+**free** (request)
+	Frees the resources held by *request*. Call this after the request is done.
+	After this call, *request* is invalid.
+
+SaveError
+---------
+
+* ``INVALID_REQUEST``: The request id is invalid.
+* ``SAVE_DIR_UNSET``: ``save_dir`` is not configured.
+* ``MISSING``: The save file does not exist.
+* ``INVALID_FILENAME``: The filename is invalid.
+* ``IO_ERROR``: File read/write failed.
+* ``CORRUPTED``: Save data could not be parsed.
+* ``UNKNOWN``: The request failed for an unknown reason.
+
 SceneGraph
 ==========
+
+Interface to the transform component in a unit.
 
 **create** (sg, unit, position, rotation, scale) : Id
 	Creates the transform for the *unit* and returns its ID.
@@ -1417,8 +1705,19 @@ SceneGraph
 	Returns the next sibling of the instance *child* or ``nil``
 	if *child* has no sibling.
 
+ScriptWorld
+===========
+
+Manages scripts in a `World`_.
+
+**broadcast** (script_world, function_name, ...)
+    Calls *function_name* on all scripts that define it, forwarding any
+    additional arguments.
+
 SoundWorld
 ===========
+
+Manages sounds in a `World`_.
 
 **stop_all** (sound_world)
 	Stops all the sounds in the world.
@@ -1439,18 +1738,22 @@ SoundWorld
 UnitManager
 ===========
 
+Singleton to manage all units in the game.
+
 **create** ([world]) : UnitId
 	Creates a new empty unit. If *world* is specified, the unit will be owned by
 	that world.
 
 **destroy** (unit)
-	Destroys the given *unit*.
+	Destroys the specified *unit*.
 
 **alive** (unit) : bool
 	Returns whether the unit is alive.
 
 Window
 ======
+
+Represents the application window.
 
 **show** ()
 	Shows the window.
@@ -1502,14 +1805,16 @@ Window
 World
 =====
 
+Represents a game world.
+
 **spawn_unit** (world, name, [position, rotation, scale]) : UnitId
-	Spawns a new instance of the unit *name* at the given *position*, *rotation* and *scale*.
+	Spawns a new instance of the unit *name* at the specified *position*, *rotation* and *scale*.
 
 **spawn_empty_unit** (world) : UnitId
 	Spawns a new empty unit and returns its id.
 
 **destroy_unit** (world, unit)
-	Destroys the given *unit*.
+	Destroys the specified *unit*.
 
 **num_units** (world) : int
 	Returns the number of units in the *world*.
@@ -1518,7 +1823,7 @@ World
 	Returns all the the units in the world in a table.
 
 **unit_by_name** (world, name) : UnitId
-	Returns the unit with the given Level Editor *name* or ``nil`` if no such unit is found.
+	Returns the unit with the specified Level Editor *name* or ``nil`` if no such unit is found.
 	If there are multiple units with the same name, a random one will be returned.
 
 **update_animations** (world, dt)
@@ -1557,6 +1862,9 @@ World
 
 **sound_world** (world) : SoundWorld
 	Returns the sound sub-world.
+
+**script_world** (world) : ScriptWorld
+	Returns the script sub-world.
 
 **animation_state_machine** (world) : AnimationStateMachine
 	Returns the animation state machine.
@@ -1614,16 +1922,16 @@ Sound
 -----
 
 **play_sound** (world, name, [loop = false, volume = 1.0, range = 70.0, position = nil, group = nil]) : SoundInstanceId
-	Plays the sound with the given *name*. If the listener is further away than
+	Plays the sound with the specified *name*. If the listener is further away than
 	*range* the sound will not be heard. If *position* is not specified the
 	sound will be played as a 2d-sound (i.e. no attenuation nor spatialization).
 	*group* is a string that identifies the sound's group, see ``SoundWorld.set_group_volume()``.
 
 **stop_sound** (world, id)
-	Stops the sound with the given *id*.
+	Stops the sound with the specified *id*.
 
 **link_sound** (world, id, unit, node)
-	Links the sound *id* to the *node* of the given *unit*.
+	Links the sound *id* to the *node* of the specified *unit*.
 	After this call, the sound *id* will follow the unit *unit*.
 
 **set_listener_pose** (world, pose)
@@ -1641,8 +1949,10 @@ Sound
 Level
 -----
 
+Interface to manage levels in a `World`_.
+
 **load_level** (world, name, [pos, rot]) : Level
-	Loads the level *name* into the world at the given *position* and *rotation*.
+	Loads the level *name* into the world at the specified *position* and *rotation*.
 
 **destroy_level** (world, level)
 	Destroys a level previously loaded by load_level(). Only units directly

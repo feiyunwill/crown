@@ -2,6 +2,8 @@
 License
 =======
 
+.. _license_crown_runtime:
+
 Crown Runtime
 =============
 
@@ -31,6 +33,8 @@ The Crown Runtime is released under the MIT License:
 	WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 	FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 	OTHER DEALINGS IN THE SOFTWARE.
+
+.. _license_crown_tools:
 
 Crown Tools
 ===========
@@ -714,6 +718,8 @@ The Crown Tools are released under the GPL-3.0-or-later license:
 	Public License instead of this License.  But first, please read
 	<https://www.gnu.org/licenses/why-not-lgpl.html>.
 
+.. _license_crown_manual:
+
 Crown Manual
 ============
 
@@ -747,6 +753,11 @@ Bullet Physics SDK (Zlib)
 
 Real-time collision detection and multi-physics simulation for VR, games, visual effects, robotics, machine learning etc.
 
+dr_mp3 (Public domain or MIT-0)
+-------------------------------
+
+Single-file MP3 audio decoder for C and C++.
+
 FreeType (FreeType Project LICENSE)
 -----------------------------------
 
@@ -766,6 +777,11 @@ MD5 (Zlib)
 ----------
 
 Independent implementation of MD5 (RFC 1321).
+
+MikkTSpace (Zlib)
+-----------------
+
+Tangent space generator for normal mapping.
 
 OpenAL soft (LGPL)
 ------------------
